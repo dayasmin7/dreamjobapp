@@ -1,0 +1,30 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: employer-service
+          uri: lb://EMPLOYER-SERVICE
+          predicates:
+            - Path=/employer/**
+        - id: jobseeker-service
+          uri: lb://JOBSEEKER-SERVICE
+          predicates:
+            - Path=/jobseeker/**
+        - id: application-service
+          uri: lb://APPLICATION-SERVICE
+          predicates:
+            - Path=/application/**
+        - id: jobopening-service
+          uri: lb://JOBOPENING-SERVICE
+          predicates:
+            - Path=/jobopening/**
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
